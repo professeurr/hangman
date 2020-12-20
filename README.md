@@ -1,10 +1,6 @@
-# hangman
-Python programming language
+# Hangman
+Python programming language  
 Final project
-
-Kodjo Klouvi (kodjo@osekoo.com)
-
-November 2020
 
 # Goal
 The goal of this project is to implement the class world game “Hangman”.
