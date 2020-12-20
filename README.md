@@ -100,8 +100,5 @@ This project can be implemented in groups of 2 or 3 persons.
 Implement the steps described above in one Python file named hangman.py.
 Your program should be well-documented and readable (variables and functions names, comments, structure, etc.)
 
-Send the Python file to kodjo@osekoo.com with the subject “M1 Finance - Dauphine - Hangman project”. Put in the mail body the names of the persons involved in the project.
-
-To be submitted before: December 20, 2020
 
 
