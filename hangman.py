@@ -1,54 +1,47 @@
 import random
 
 
+
 def load_words():
-    words = []
+    words = []  # list of the words to read from the file
     with open('words.txt', 'r') as fp:
-        for line in fp:
-            words += line.rstrip().split()
+        for line in fp:  # iterate througth the file (line by line)
+            words += line.split()  # split each line into words and append them to list
     return words
 
 
+def get_secret_word(words, chances=10):
+    ws = list(filter(lambda w : len(w) <= chances, words)) # pick up the words which length is less or equal to the number of chances offered to the player
+    pos = random.randint(0, len(ws))  # get a random position
+    return ws[pos]  # return a random word at the given position
+
+
 def display_secret_word(secret_word, guessed_letters):
-    display_letters = [c if c in guessed_letters else '_' for c in secret_word]
+    display_letters = [c if c in guessed_letters else '_' for c in secret_word]  # iterate through the letters guessed by player and replace undiscovered ones by '_'
     print(' '.join(display_letters).upper())
 
 
-def display_secret_word(secret_word, guessed_letters):
-    display_letters = ''
-    for c in secret_word:
-        if c in guessed_letters:
-            display_letters += ' ' + c.upper() + ' '
-        else:
-            display_letters += ' _ '
-    print(display_letters)
-
-
 def guess_word(secret_word, chances):
-    letters = set(secret_word)
-    bag_of_letters = set()
-    history = set()
-    turn = 1
-    game_status = 0
-    while game_status == 0:
-        display_secret_word(secret_word, bag_of_letters)
+    letters = set(secret_word)  # get unique letters in the secret word
+    guessed_letters = set()  # container of the letters well guessed by the player
+    history = set()  # container of the player letters
+    turn = 1  # variable to store the number of turns
+    while turn <= chances:
+        display_secret_word(secret_word, guessed_letters)  # display the current status of the word
         letter = input(f'Enter one letter ({turn}/{chances}): ').lower()
         if letter in history:
             print(f'You already played this letter ({letter}).')
         else:
-            if letter in letters:
-                bag_of_letters.add(letter)
-            if len(bag_of_letters) == len(letters):
-                game_status = 1
-            elif turn == chances:
-                game_status = -1
-            history.add(letter)
-            turn += 1
-    return game_status
+            if letter in letters:  # check if the played letter is in the secret word
+                guessed_letters.add(letter)  # register it
+            if len(guessed_letters) == len(letters):  # check if all letters have been discovered
+                return +1  # stop the loop with win status
+            history.add(letter)  # register the played letter
+            turn += 1  # increase the number of turn (decrease the chances)
+    return -1  # reach the maximum number of tries
 
 
 if __name__ == "__main__":
-    welcome_message()
     words = load_words() # loading the words from words.txt file
     chances = 10 # number of chances offered to the player
     play_again = True # a flag telling is the game is over or not
