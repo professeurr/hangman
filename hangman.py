@@ -2,13 +2,10 @@ import random
 
 
 def load_words():
-    pass
     words = []
     with open('words.txt', 'r') as fp:
-        line = fp.readline()
-        while line != '':
-            words += line.rstrip().split(' ')
-            line = fp.readline()
+        for line in fp:
+            words += line.rstrip().split()
     return words
 
 
