@@ -9,10 +9,9 @@ def load_words():
     return words
 
 
-def get_secret_word(words, chances=10):
-    ws = list(filter(lambda w : len(w) <= chances, words))
-    pos = random.randint(0, len(ws))
-    return ws[pos]
+def display_secret_word(secret_word, guessed_letters):
+    display_letters = [c if c in guessed_letters else '_' for c in secret_word]
+    print(' '.join(display_letters).upper())
 
 
 def display_secret_word(secret_word, guessed_letters):
@@ -48,13 +47,6 @@ def guess_word(secret_word, chances):
         display_secret_word(secret_word, bag_of_letters)
     return game_end
 
-
-def welcome_message():
-    print('**************************************************')
-    print('**             Enjoy playing Hangman!           **')
-    print('**************************************************')
-
-
 if __name__ == "__main__":
     welcome_message()
     words = load_words() # loading the words from words.txt file
@@ -67,7 +59,7 @@ if __name__ == "__main__":
         if status == 1: # the player figured out the secret word
             print('You won!')
         else: # -1 the player run out of chances
-            print('You lost!')
+            print('You lost! The word to guess was:', secret_word.upper())
         play_again = input('\nDo you want to play again (y/n)? ').lower() == 'y' # asking the player for another party
     print('Goodbye!')
     
