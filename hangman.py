@@ -47,6 +47,7 @@ def guess_word(secret_word, chances):
         display_secret_word(secret_word, bag_of_letters)
     return game_end
 
+
 if __name__ == "__main__":
     welcome_message()
     words = load_words() # loading the words from words.txt file
