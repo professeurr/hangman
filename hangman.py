@@ -28,24 +28,23 @@ def guess_word(secret_word, chances):
     letters = set(secret_word)
     bag_of_letters = set()
     history = set()
-    display_secret_word(secret_word, bag_of_letters)
     turn = 1
-    game_end = 0
-    while game_end == 0:
-        letter = input(f'Enter one letter ({turn}/{chances}): ')
+    game_status = 0
+    while game_status == 0:
+        display_secret_word(secret_word, bag_of_letters)
+        letter = input(f'Enter one letter ({turn}/{chances}): ').lower()
         if letter in history:
             print(f'You already played this letter ({letter}).')
         else:
             if letter in letters:
                 bag_of_letters.add(letter)
             if len(bag_of_letters) == len(letters):
-                game_end = 1
+                game_status = 1
             elif turn == chances:
-                game_end = -1
+                game_status = -1
             history.add(letter)
             turn += 1
-        display_secret_word(secret_word, bag_of_letters)
-    return game_end
+    return game_status
 
 
 if __name__ == "__main__":
